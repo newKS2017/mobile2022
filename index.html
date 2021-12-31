@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8">
   <title>APP</title>
+  <!-- <base href="/"> -->
   <base href="/mobile2022/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -8,5 +9,21 @@
 <body>
   <app-root></app-root>
 <script src="runtime.5e4df040dbefa75e.js" type="module"></script><script src="polyfills.16e92d1b1f3e21e0.js" type="module"></script><script src="main.9cd765f663580064.js" type="module"></script>
+<script>
+  var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    window.onresize = function () {
+        var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        //软键盘弹起与隐藏  都会引起窗口的高度发生变化
+        if (resizeHeight * 1 < originalHeight * 1 && isfocus == true) { //resizeHeight<originalHeight证明窗口被挤压了
+            plus.webview.currentWebview().setStyle({
+                height: originalHeight
+            });
+        }
+    }
+
+    plus.webview.currentWebview().setStyle({
+        softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+    });
+</script>
 
 </body></html>
